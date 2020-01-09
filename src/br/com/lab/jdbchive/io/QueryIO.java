@@ -1,4 +1,4 @@
-package br.com.duratex.io;
+package br.com.lab.jdbchive.io;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -11,7 +11,7 @@ public class QueryIO {
 
 
     public QueryIO(String caminho) {
-        this.arquivo = caminho;
+        arquivo = caminho;
     }
 
 
@@ -21,7 +21,7 @@ public class QueryIO {
         StringBuilder criaString = new StringBuilder();
 
         try {
-            this.buffer = new BufferedReader(new FileReader(this.arquivo));
+            buffer = new BufferedReader(new FileReader(this.arquivo));
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
