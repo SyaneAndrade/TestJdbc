@@ -6,8 +6,6 @@ import br.com.lab.jdbc.io.QueryIO;
 import br.com.lab.jdbc.hive.sql.JdbcHiveRun;
 import br.com.lab.jdbc.presto.sql.JdbcPrestoRun;
 
-// jdbc:hive2://ec2-54-236-25-225.compute-1.amazonaws.com:10000/ none none /home/jessiane-andrade/Downloads/test_hive_show_db.sql jdbc:presto://ec2-54-236-25-225.compute-1.amazonaws.com:8889/hive?user=Hive?SSL=true Hive none
-
 public class Main {
 
     public static void main(String[] args) throws SQLException, IOException {
