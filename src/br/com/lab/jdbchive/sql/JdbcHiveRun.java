@@ -1,6 +1,5 @@
 package br.com.lab.jdbchive.sql;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,7 +12,7 @@ public class JdbcHiveRun {
     private static Connection con;
     public Statement stmt;
 
-    public JdbcHiveRun() throws SQLException {
+    public JdbcHiveRun(String caminhoHive) throws SQLException {
         try {
             Class.forName(driverName);
         } catch (ClassNotFoundException e) {
@@ -21,16 +20,23 @@ public class JdbcHiveRun {
             e.printStackTrace();
             System.exit(1);
         }
-        con = DriverManager.getConnection("jdbc:hive2://ec2-54-236-25-225.compute-1.amazonaws.com:10000/");
+        con = DriverManager.getConnection(caminhoHive);
         stmt = con.createStatement();
     }
 
-    public  void executeQuery(String query) throws SQLException {
+    public  void executeQuery(String query) {
 
+        ResultSet set = null;
+
+        try {
+            System.out.println(query);
             ResultSet res = stmt.executeQuery(query);
-
             while (res.next()) {
                 System.out.println(res.getString(1));
             }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }

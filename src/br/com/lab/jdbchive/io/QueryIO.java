@@ -29,14 +29,11 @@ public class QueryIO {
         }
 
         while((linha = buffer.readLine()) != null) {
-
             criaString.append(linha);
         }
 
         String[] querys;
-
         querys = criaString.toString().split(";");
-
         return querys;
     }
 }
