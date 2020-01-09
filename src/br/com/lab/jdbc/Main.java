@@ -10,14 +10,10 @@ public class Main {
 
     public static void main(String[] args) throws SQLException, IOException {
 
-        QueryIO qrio = new QueryIO(args[3]);
+        QueryIO qrio = new QueryIO(args[1]);
 
-        String userHive = ((args[1] != "none") ? args[1] : "");
-        String passHive = ((args[2] != "none") ? args[1] : "");
-        String userPresto = ((args[5] != "none") ? args[1] : "");
-        String passPresto = ((args[6] != "none") ? args[1] : "dummy_password");
 
-        JdbcHiveRun jdbcrun = new JdbcHiveRun(args[0], userHive, passHive);
+        JdbcHiveRun jdbcrun = new JdbcHiveRun(args[0]);
 
         String[] querys = qrio.lerQuery();
 
@@ -25,9 +21,12 @@ public class Main {
             jdbcrun.executeQuery(query);
             }
 
-        JdbcPrestoRun jdbcprestorun = new JdbcPrestoRun(args[4], userPresto, passPresto);
+        JdbcPrestoRun jdbcprestorun = new JdbcPrestoRun(args[2]);
 
-        for (String query: querys){
+        QueryIO qrio_presto = new QueryIO(args[3]);
+        String[] querys2 = qrio_presto.lerQuery();
+
+        for (String query: querys2){
             jdbcprestorun.executeQuery(query);
         }
     }

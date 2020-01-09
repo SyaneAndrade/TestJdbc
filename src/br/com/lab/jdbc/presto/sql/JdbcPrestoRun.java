@@ -12,7 +12,7 @@ public class JdbcPrestoRun {
     private static Connection con;
     public Statement stmt;
 
-    public JdbcPrestoRun(String caminhoPresto, String user, String password) throws SQLException {
+    public JdbcPrestoRun(String caminhoPresto) throws SQLException {
         try {
             Class.forName(driverName);
         } catch (ClassNotFoundException e) {

@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.DriverManager;
+import java.util.Properties;
 
 public class JdbcHiveRun {
 
@@ -12,7 +13,7 @@ public class JdbcHiveRun {
     private static Connection con;
     public Statement stmt;
 
-    public JdbcHiveRun(String caminhoHive, String user, String password) throws SQLException {
+    public JdbcHiveRun(String caminhoHive) throws SQLException {
         try {
             Class.forName(driverName);
         } catch (ClassNotFoundException e) {
@@ -20,7 +21,13 @@ public class JdbcHiveRun {
             e.printStackTrace();
             System.exit(1);
         }
-        con = DriverManager.getConnection(caminhoHive, user, password);
+        Properties conProperties = new Properties();
+        conProperties.put("hive.support.concurrency", "true");
+        conProperties.put("hive.exec.dynamic.partition.mode", "nonstrict");
+        conProperties.put("hive.txn.manager", "org.apache.hadoop.hive.ql.lockmgr.DbTxnManager");
+        conProperties.put("hive.compactor.initiator.on", "true");
+        conProperties.put("hive.compactor.worker.threads", "1");
+        con = DriverManager.getConnection(caminhoHive, conProperties);
         stmt = con.createStatement();
     }
 
