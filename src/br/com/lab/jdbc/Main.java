@@ -10,10 +10,28 @@ public class Main {
 
     public static void main(String[] args) throws SQLException, IOException {
 
-        QueryIO qrio = new QueryIO(args[1]);
+        QueryIO qrio = new QueryIO(args[3]);
 
+        String urlHiveJdbc = "";
+        String urlPrestoJdbc = "";
 
-        JdbcHiveRun jdbcrun = new JdbcHiveRun(args[0]);
+        String userHive = ((args[1] != "none")) ? args[1] : "";
+        String passwordHive = ((args[2] != "none")) ? args[2] : "";
+        try {
+             urlHiveJdbc = args[0];
+        }
+        catch(Exception e){
+            System.out.println("Necessário para como primeiro parametro a url para conexão jdbc com o Hive;");
+        }
+
+        try {
+            urlPrestoJdbc = args[4];
+        }
+        catch(Exception e){
+            System.out.println("Necessário para como primeiro parametro a url para conexão jdbc com o Presto;");
+        }
+
+        JdbcHiveRun jdbcrun = new JdbcHiveRun(urlHiveJdbc, userHive, passwordHive);
 
         String[] querys = qrio.lerQuery();
 
@@ -21,9 +39,9 @@ public class Main {
             jdbcrun.executeQuery(query);
             }
 
-        JdbcPrestoRun jdbcprestorun = new JdbcPrestoRun(args[2]);
+        JdbcPrestoRun jdbcprestorun = new JdbcPrestoRun(urlPrestoJdbc);
 
-        QueryIO qrio_presto = new QueryIO(args[3]);
+        QueryIO qrio_presto = new QueryIO(args[5]);
         String[] querys2 = qrio_presto.lerQuery();
 
         for (String query: querys2){

@@ -13,7 +13,7 @@ public class JdbcHiveRun {
     private static Connection con;
     public Statement stmt;
 
-    public JdbcHiveRun(String caminhoHive) throws SQLException {
+    public JdbcHiveRun(String caminhoHive, String user, String password) throws SQLException {
         try {
             Class.forName(driverName);
         } catch (ClassNotFoundException e) {
@@ -27,6 +27,8 @@ public class JdbcHiveRun {
         conProperties.put("hive.txn.manager", "org.apache.hadoop.hive.ql.lockmgr.DbTxnManager");
         conProperties.put("hive.compactor.initiator.on", "true");
         conProperties.put("hive.compactor.worker.threads", "1");
+        conProperties.put("user", user);
+        conProperties.put("password", password);
         con = DriverManager.getConnection(caminhoHive, conProperties);
         stmt = con.createStatement();
     }
